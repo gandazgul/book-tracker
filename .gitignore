@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+.DS_Store
+.cache/
+test-results/
+.impeccable/config.local.json
+.astro/
+.impeccable/mocks/
+.impeccable/build-phase.json
+.impeccable/build/
+.impeccable/review/

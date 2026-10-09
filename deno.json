@@ -1,0 +1,13 @@
+{
+  "nodeModulesDir": "auto",
+  "tasks": {
+    "dev": "deno run -A npm:astro dev --host 127.0.0.1",
+    "check": "deno run -A npm:astro check",
+    "build": "deno task check && deno run -A npm:astro build",
+    "preview": "deno run -A npm:astro preview --host 127.0.0.1",
+    "test": "deno test --allow-read tests/"
+  },
+  "compilerOptions": { "lib": ["deno.ns", "dom", "esnext"], "types": ["@types/papaparse"] },
+  "fmt": { "singleQuote": true, "lineWidth": 100 },
+  "exclude": ["dist", "node_modules", ".astro", ".impeccable"]
+}

@@ -1,0 +1,501 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-09T13:21:49.613185+00:00",
+  "title": "Design System: Between the Lines",
+  "extensions": {
+    "colorMeta": {
+      "berry": {
+        "role": "primary",
+        "displayName": "Berry",
+        "tonalRamp": [
+          "oklch(15.0% 0.0893 349.22)",
+          "oklch(26.4% 0.0893 349.22)",
+          "oklch(37.9% 0.0893 349.22)",
+          "oklch(49.3% 0.0893 349.22)",
+          "oklch(60.7% 0.0893 349.22)",
+          "oklch(72.1% 0.0893 349.22)",
+          "oklch(83.6% 0.0893 349.22)",
+          "oklch(95.0% 0.0893 349.22)"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "tonalRamp": [
+          "oklch(15.0% 0.0073 312.30)",
+          "oklch(26.4% 0.0073 312.30)",
+          "oklch(37.9% 0.0073 312.30)",
+          "oklch(49.3% 0.0073 312.30)",
+          "oklch(60.7% 0.0073 312.30)",
+          "oklch(72.1% 0.0073 312.30)",
+          "oklch(83.6% 0.0073 312.30)",
+          "oklch(95.0% 0.0073 312.30)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "tonalRamp": [
+          "oklch(15.0% 0.0367 314.14)",
+          "oklch(26.4% 0.0367 314.14)",
+          "oklch(37.9% 0.0367 314.14)",
+          "oklch(49.3% 0.0367 314.14)",
+          "oklch(60.7% 0.0367 314.14)",
+          "oklch(72.1% 0.0367 314.14)",
+          "oklch(83.6% 0.0367 314.14)",
+          "oklch(95.0% 0.0367 314.14)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted",
+        "tonalRamp": [
+          "oklch(15.0% 0.0310 312.35)",
+          "oklch(26.4% 0.0310 312.35)",
+          "oklch(37.9% 0.0310 312.35)",
+          "oklch(49.3% 0.0310 312.35)",
+          "oklch(60.7% 0.0310 312.35)",
+          "oklch(72.1% 0.0310 312.35)",
+          "oklch(83.6% 0.0310 312.35)",
+          "oklch(95.0% 0.0310 312.35)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Line",
+        "tonalRamp": [
+          "oklch(15.0% 0.0196 312.79)",
+          "oklch(26.4% 0.0196 312.79)",
+          "oklch(37.9% 0.0196 312.79)",
+          "oklch(49.3% 0.0196 312.79)",
+          "oklch(60.7% 0.0196 312.79)",
+          "oklch(72.1% 0.0196 312.79)",
+          "oklch(83.6% 0.0196 312.79)",
+          "oklch(95.0% 0.0196 312.79)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Surface",
+        "tonalRamp": [
+          "oklch(15.0% 0.0028 308.43)",
+          "oklch(26.4% 0.0028 308.43)",
+          "oklch(37.9% 0.0028 308.43)",
+          "oklch(49.3% 0.0028 308.43)",
+          "oklch(60.7% 0.0028 308.43)",
+          "oklch(72.1% 0.0028 308.43)",
+          "oklch(83.6% 0.0028 308.43)",
+          "oklch(95.0% 0.0028 308.43)"
+        ]
+      },
+      "sidebar": {
+        "role": "neutral",
+        "displayName": "Sidebar",
+        "tonalRamp": [
+          "oklch(15.0% 0.0136 314.76)",
+          "oklch(26.4% 0.0136 314.76)",
+          "oklch(37.9% 0.0136 314.76)",
+          "oklch(49.3% 0.0136 314.76)",
+          "oklch(60.7% 0.0136 314.76)",
+          "oklch(72.1% 0.0136 314.76)",
+          "oklch(83.6% 0.0136 314.76)",
+          "oklch(95.0% 0.0136 314.76)"
+        ]
+      },
+      "bar": {
+        "role": "primary",
+        "displayName": "Bar",
+        "tonalRamp": [
+          "oklch(15.0% 0.0819 342.58)",
+          "oklch(26.4% 0.0819 342.58)",
+          "oklch(37.9% 0.0819 342.58)",
+          "oklch(49.3% 0.0819 342.58)",
+          "oklch(60.7% 0.0819 342.58)",
+          "oklch(72.1% 0.0819 342.58)",
+          "oklch(83.6% 0.0819 342.58)",
+          "oklch(95.0% 0.0819 342.58)"
+        ]
+      },
+      "peak": {
+        "role": "primary",
+        "displayName": "Peak",
+        "tonalRamp": [
+          "oklch(15.0% 0.0822 332.39)",
+          "oklch(26.4% 0.0822 332.39)",
+          "oklch(37.9% 0.0822 332.39)",
+          "oklch(49.3% 0.0822 332.39)",
+          "oklch(60.7% 0.0822 332.39)",
+          "oklch(72.1% 0.0822 332.39)",
+          "oklch(83.6% 0.0822 332.39)",
+          "oklch(95.0% 0.0822 332.39)"
+        ]
+      },
+      "active": {
+        "role": "neutral",
+        "displayName": "Active",
+        "tonalRamp": [
+          "oklch(15.0% 0.0276 320.25)",
+          "oklch(26.4% 0.0276 320.25)",
+          "oklch(37.9% 0.0276 320.25)",
+          "oklch(49.3% 0.0276 320.25)",
+          "oklch(60.7% 0.0276 320.25)",
+          "oklch(72.1% 0.0276 320.25)",
+          "oklch(83.6% 0.0276 320.25)",
+          "oklch(95.0% 0.0276 320.25)"
+        ]
+      },
+      "active-text": {
+        "role": "neutral",
+        "displayName": "Active Text",
+        "tonalRamp": [
+          "oklch(15.0% 0.0814 345.61)",
+          "oklch(26.4% 0.0814 345.61)",
+          "oklch(37.9% 0.0814 345.61)",
+          "oklch(49.3% 0.0814 345.61)",
+          "oklch(60.7% 0.0814 345.61)",
+          "oklch(72.1% 0.0814 345.61)",
+          "oklch(83.6% 0.0814 345.61)",
+          "oklch(95.0% 0.0814 345.61)"
+        ]
+      },
+      "nav-hover": {
+        "role": "neutral",
+        "displayName": "Nav Hover",
+        "tonalRamp": [
+          "oklch(15.0% 0.0217 316.45)",
+          "oklch(26.4% 0.0217 316.45)",
+          "oklch(37.9% 0.0217 316.45)",
+          "oklch(49.3% 0.0217 316.45)",
+          "oklch(60.7% 0.0217 316.45)",
+          "oklch(72.1% 0.0217 316.45)",
+          "oklch(83.6% 0.0217 316.45)",
+          "oklch(95.0% 0.0217 316.45)"
+        ]
+      },
+      "field-border": {
+        "role": "neutral",
+        "displayName": "Field Border",
+        "tonalRamp": [
+          "oklch(15.0% 0.0275 312.55)",
+          "oklch(26.4% 0.0275 312.55)",
+          "oklch(37.9% 0.0275 312.55)",
+          "oklch(49.3% 0.0275 312.55)",
+          "oklch(60.7% 0.0275 312.55)",
+          "oklch(72.1% 0.0275 312.55)",
+          "oklch(83.6% 0.0275 312.55)",
+          "oklch(95.0% 0.0275 312.55)"
+        ]
+      },
+      "rank-track": {
+        "role": "neutral",
+        "displayName": "Rank Track",
+        "tonalRamp": [
+          "oklch(15.0% 0.0115 308.33)",
+          "oklch(26.4% 0.0115 308.33)",
+          "oklch(37.9% 0.0115 308.33)",
+          "oklch(49.3% 0.0115 308.33)",
+          "oklch(60.7% 0.0115 308.33)",
+          "oklch(72.1% 0.0115 308.33)",
+          "oklch(83.6% 0.0115 308.33)",
+          "oklch(95.0% 0.0115 308.33)"
+        ]
+      },
+      "rank-fill": {
+        "role": "primary",
+        "displayName": "Rank Fill",
+        "tonalRamp": [
+          "oklch(15.0% 0.0806 344.07)",
+          "oklch(26.4% 0.0806 344.07)",
+          "oklch(37.9% 0.0806 344.07)",
+          "oklch(49.3% 0.0806 344.07)",
+          "oklch(60.7% 0.0806 344.07)",
+          "oklch(72.1% 0.0806 344.07)",
+          "oklch(83.6% 0.0806 344.07)",
+          "oklch(95.0% 0.0806 344.07)"
+        ]
+      },
+      "sage": {
+        "role": "secondary",
+        "displayName": "Sage",
+        "tonalRamp": [
+          "oklch(15.0% 0.0614 146.13)",
+          "oklch(26.4% 0.0614 146.13)",
+          "oklch(37.9% 0.0614 146.13)",
+          "oklch(49.3% 0.0614 146.13)",
+          "oklch(60.7% 0.0614 146.13)",
+          "oklch(72.1% 0.0614 146.13)",
+          "oklch(83.6% 0.0614 146.13)",
+          "oklch(95.0% 0.0614 146.13)"
+        ]
+      },
+      "finished-bg": {
+        "role": "secondary",
+        "displayName": "Finished Bg",
+        "tonalRamp": [
+          "oklch(15.0% 0.0113 141.26)",
+          "oklch(26.4% 0.0113 141.26)",
+          "oklch(37.9% 0.0113 141.26)",
+          "oklch(49.3% 0.0113 141.26)",
+          "oklch(60.7% 0.0113 141.26)",
+          "oklch(72.1% 0.0113 141.26)",
+          "oklch(83.6% 0.0113 141.26)",
+          "oklch(95.0% 0.0113 141.26)"
+        ]
+      },
+      "finished-text": {
+        "role": "secondary",
+        "displayName": "Finished Text",
+        "tonalRamp": [
+          "oklch(15.0% 0.0632 144.48)",
+          "oklch(26.4% 0.0632 144.48)",
+          "oklch(37.9% 0.0632 144.48)",
+          "oklch(49.3% 0.0632 144.48)",
+          "oklch(60.7% 0.0632 144.48)",
+          "oklch(72.1% 0.0632 144.48)",
+          "oklch(83.6% 0.0632 144.48)",
+          "oklch(95.0% 0.0632 144.48)"
+        ]
+      },
+      "status-bg": {
+        "role": "neutral",
+        "displayName": "Status Bg",
+        "tonalRamp": [
+          "oklch(15.0% 0.0141 318.70)",
+          "oklch(26.4% 0.0141 318.70)",
+          "oklch(37.9% 0.0141 318.70)",
+          "oklch(49.3% 0.0141 318.70)",
+          "oklch(60.7% 0.0141 318.70)",
+          "oklch(72.1% 0.0141 318.70)",
+          "oklch(83.6% 0.0141 318.70)",
+          "oklch(95.0% 0.0141 318.70)"
+        ]
+      },
+      "status-text": {
+        "role": "neutral",
+        "displayName": "Status Text",
+        "tonalRamp": [
+          "oklch(15.0% 0.0752 333.14)",
+          "oklch(26.4% 0.0752 333.14)",
+          "oklch(37.9% 0.0752 333.14)",
+          "oklch(49.3% 0.0752 333.14)",
+          "oklch(60.7% 0.0752 333.14)",
+          "oklch(72.1% 0.0752 333.14)",
+          "oklch(83.6% 0.0752 333.14)",
+          "oklch(95.0% 0.0752 333.14)"
+        ]
+      },
+      "filter-bg": {
+        "role": "neutral",
+        "displayName": "Filter Bg",
+        "tonalRamp": [
+          "oklch(15.0% 0.0262 321.94)",
+          "oklch(26.4% 0.0262 321.94)",
+          "oklch(37.9% 0.0262 321.94)",
+          "oklch(49.3% 0.0262 321.94)",
+          "oklch(60.7% 0.0262 321.94)",
+          "oklch(72.1% 0.0262 321.94)",
+          "oklch(83.6% 0.0262 321.94)",
+          "oklch(95.0% 0.0262 321.94)"
+        ]
+      },
+      "cover-bg": {
+        "role": "neutral",
+        "displayName": "Cover Bg",
+        "tonalRamp": [
+          "oklch(15.0% 0.0190 325.73)",
+          "oklch(26.4% 0.0190 325.73)",
+          "oklch(37.9% 0.0190 325.73)",
+          "oklch(49.3% 0.0190 325.73)",
+          "oklch(60.7% 0.0190 325.73)",
+          "oklch(72.1% 0.0190 325.73)",
+          "oklch(83.6% 0.0190 325.73)",
+          "oklch(95.0% 0.0190 325.73)"
+        ]
+      },
+      "cover-text": {
+        "role": "neutral",
+        "displayName": "Cover Text",
+        "tonalRamp": [
+          "oklch(15.0% 0.0588 333.39)",
+          "oklch(26.4% 0.0588 333.39)",
+          "oklch(37.9% 0.0588 333.39)",
+          "oklch(49.3% 0.0588 333.39)",
+          "oklch(60.7% 0.0588 333.39)",
+          "oklch(72.1% 0.0588 333.39)",
+          "oklch(83.6% 0.0588 333.39)",
+          "oklch(95.0% 0.0588 333.39)"
+        ]
+      },
+      "cover-border": {
+        "role": "neutral",
+        "displayName": "Cover Border",
+        "tonalRamp": [
+          "oklch(15.0% 0.0375 325.93)",
+          "oklch(26.4% 0.0375 325.93)",
+          "oklch(37.9% 0.0375 325.93)",
+          "oklch(49.3% 0.0375 325.93)",
+          "oklch(60.7% 0.0375 325.93)",
+          "oklch(72.1% 0.0375 325.93)",
+          "oklch(83.6% 0.0375 325.93)",
+          "oklch(95.0% 0.0375 325.93)"
+        ]
+      },
+      "link-hover": {
+        "role": "primary",
+        "displayName": "Link Hover",
+        "tonalRamp": [
+          "oklch(15.0% 0.0697 345.33)",
+          "oklch(26.4% 0.0697 345.33)",
+          "oklch(37.9% 0.0697 345.33)",
+          "oklch(49.3% 0.0697 345.33)",
+          "oklch(60.7% 0.0697 345.33)",
+          "oklch(72.1% 0.0697 345.33)",
+          "oklch(83.6% 0.0697 345.33)",
+          "oklch(95.0% 0.0697 345.33)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "headline": {
+        "displayName": "Literary page headline",
+        "purpose": "Page headings; final implemented weight is 500."
+      },
+      "navigation": {
+        "displayName": "Navigation label",
+        "purpose": "16px desktop, 14px narrow desktop, 13px mobile."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "control-state",
+        "value": "color 160ms ease-out, background-color 160ms ease-out",
+        "purpose": "Buttons and links; disabled by prefers-reduced-motion."
+      },
+      {
+        "name": "refresh",
+        "value": "refresh-turn 1.2s linear infinite",
+        "purpose": "Active refresh icon only; one complete rotation, disabled by prefers-reduced-motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "large-desktop-min",
+        "value": "1500px"
+      },
+      {
+        "name": "narrow-desktop-max",
+        "value": "1190px"
+      },
+      {
+        "name": "stack-panels-max",
+        "value": "960px"
+      },
+      {
+        "name": "mobile-max",
+        "value": "700px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Text action",
+      "kind": "button",
+      "refersTo": "button-text",
+      "description": "Quiet berry action used in panel headings.",
+      "html": "<button class=\"ds-text\">View library <svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path d=\"M5 12h14m-6-6 6 6-6 6\"/></svg></button>",
+      "css": ".ds-text{font-family:var(--font-sans,'Manrope Variable',sans-serif);font-size:14px;line-height:1.55;color:var(--color-berry,#814664);background:none;border:0;padding:2px 0;display:inline-flex;align-items:center;gap:8px;cursor:pointer;transition:color 160ms ease-out,background-color 160ms ease-out}.ds-text:hover{color:#512840;text-decoration:underline}.ds-text:focus-visible{outline:2px solid var(--color-berry,#814664);outline-offset:4px;}.ds-text:disabled{opacity:.55;cursor:wait}@media(prefers-reduced-motion:reduce){.ds-text{transition:none}}"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "refersTo": "navigation",
+      "description": "Current section with a softly filled lilac state.",
+      "html": "<nav aria-label=\"Preview navigation\"><button class=\"ds-nav\" aria-current=\"page\"><svg width=\"21\" height=\"21\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-8H9v8H4a1 1 0 0 1-1-1Z\"/></svg>Overview</button></nav>",
+      "css": ".ds-nav{font-family:var(--font-sans,'Manrope Variable',sans-serif);font-size:14px;line-height:1.55;font-size:16px;font-weight:500;color:var(--color-ink,#2c2032);background:transparent;border:0;border-radius:6px;display:flex;align-items:center;gap:14px;padding:13px 14px;min-height:47px;width:100%;text-align:left;cursor:pointer;transition:color 160ms ease-out,background-color 160ms ease-out}.ds-nav:hover{background:#e5dbe9}.ds-nav[aria-current]{background:var(--active,#dfd1e2);color:#663451;font-weight:700}.ds-nav:focus-visible{outline:2px solid var(--color-berry,#814664);outline-offset:4px;}@media(max-width:1190px){.ds-nav{font-size:14px}}@media(max-width:700px){.ds-nav{font-size:13px;padding:9px 7px;min-height:40px}}@media(prefers-reduced-motion:reduce){.ds-nav{transition:none}}"
+    },
+    {
+      "name": "Search field",
+      "kind": "input",
+      "refersTo": "input-search",
+      "description": "Outlined search with a leading icon.",
+      "html": "<label class=\"ds-search\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/></svg><input aria-label=\"Search books\" type=\"search\" placeholder=\"Search title, author or series\"/></label>",
+      "css": ".ds-search{position:relative;display:block;color:var(--muted,#6c6173)}.ds-search svg{position:absolute;left:14px;top:13px}.ds-search input{font-family:var(--font-sans,'Manrope Variable',sans-serif);font-size:14px;line-height:1.55;width:100%;min-height:42px;padding:9px 13px 9px 42px;border:1px solid #cfc4d6;border-radius:8px;background:transparent;color:var(--color-ink,#2c2032);caret-color:var(--color-berry,#814664)}.ds-search input::placeholder{color:var(--muted,#6c6173)}.ds-search input:focus-visible{outline:2px solid var(--color-berry,#814664);outline-offset:4px;}"
+    },
+    {
+      "name": "Author filter",
+      "kind": "chip",
+      "refersTo": "filter-chip",
+      "description": "Removable active filter; preview label is illustrative.",
+      "html": "<button class=\"ds-filter\">Author filter <svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-label=\"Clear author filter\"><path d=\"m6 6 12 12M18 6 6 18\"/></svg></button>",
+      "css": ".ds-filter{font-family:var(--font-sans,'Manrope Variable',sans-serif);font-size:14px;line-height:1.55;display:inline-flex;gap:8px;align-items:center;background:#e8daea;border:0;padding:5px 9px;border-radius:5px;color:#6b4264;cursor:pointer;transition:color 160ms ease-out,background-color 160ms ease-out}.ds-filter:focus-visible{outline:2px solid var(--color-berry,#814664);outline-offset:4px;}@media(prefers-reduced-motion:reduce){.ds-filter{transition:none}}"
+    },
+    {
+      "name": "Reading status",
+      "kind": "chip",
+      "refersTo": "status",
+      "description": "Noninteractive reading status.",
+      "html": "<span class=\"ds-status\">To read</span>",
+      "css": ".ds-status{font-family:var(--font-sans,'Manrope Variable',sans-serif);font-size:14px;line-height:1.55;font-size:11px;background:#eee7f0;color:#6b4264;padding:3px 8px;border-radius:4px;white-space:nowrap}"
+    },
+    {
+      "name": "Finished status",
+      "kind": "chip",
+      "refersTo": "status-finished",
+      "description": "Sage status for completed reading.",
+      "html": "<span class=\"ds-finished\">Finished</span>",
+      "css": ".ds-finished{font-family:var(--font-sans,'Manrope Variable',sans-serif);font-size:14px;line-height:1.55;font-size:11px;background:#e9efe8;color:#436343;padding:3px 8px;border-radius:4px;white-space:nowrap}"
+    },
+    {
+      "name": "Content panel",
+      "kind": "card",
+      "refersTo": "panel",
+      "description": "Quiet flat container with a direct heading.",
+      "html": "<section class=\"ds-panel\"><h2>Recently finished</h2><p>Books from your reading history.</p></section>",
+      "css": ".ds-panel{font-family:var(--font-sans,'Manrope Variable',sans-serif);font-size:14px;line-height:1.55;color:var(--color-ink,#2c2032);background:var(--surface,#fdfcfe);border-radius:12px;padding:22px 24px 24px}.ds-panel h2{font-size:18px;line-height:1.4;font-weight:750;letter-spacing:-.025em;margin:0 0 22px}.ds-panel p{margin:0;color:var(--muted,#6c6173)}@media(max-width:1190px){.ds-panel{padding:20px}}@media(max-width:700px){.ds-panel{padding:18px}.ds-panel h2{font-size:16px}}"
+    },
+    {
+      "name": "Cover placeholder",
+      "kind": "custom",
+      "refersTo": "cover-placeholder",
+      "description": "Stable 2:3 cover fallback; sample text is a template, not a source record.",
+      "html": "<div class=\"ds-cover\"><div class=\"ds-cover-content\"><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\" aria-hidden=\"true\"><path d=\"M12 7v14m0-14C9 4 5 3 2 4v16c3-1 7 0 10 1 3-1 7-2 10-1V4c-3-1-7 0-10 3Z\"/></svg><span>Book title</span><small>Author name</small></div></div>",
+      "css": ".ds-cover{width:150px;aspect-ratio:2/3;border-radius:5px;overflow:hidden;background:#e5dae5}.ds-cover-content{font-family:var(--font-sans,'Manrope Variable',sans-serif);font-size:14px;line-height:1.55;height:100%;padding:15px 10px;box-sizing:border-box;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;gap:12px;color:#64445e;border:1px solid #c5b0c5;border-radius:5px}.ds-cover-content>span{font-family:var(--font-serif,\"Literata Variable\",Georgia,serif);font-size:17px;line-height:1.25;overflow-wrap:anywhere}.ds-cover-content small{font-size:11px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Between the Lines",
+    "overview": "A personal reading atlas, grounded in the approved lilac-and-berry sidebar design. Literary headings give the reader\u2019s collection warmth; compact, clear controls and visible quantities keep everyday browsing practical.\n\nThe visual hierarchy moves from the page title to integrated totals and then quiet white panels. Covers provide the imagery; reading records, author rankings, and chart values come from the actual sheet. The approved design removes decorative card subheadings and the sidebar quotation.",
+    "keyCharacteristics": [
+      "Pale lilac ground and sidebar with berry data accents.",
+      "Literata headings paired with Manrope controls and metadata.",
+      "Flat white panels, restrained rounding, and fine separators.",
+      "Real book covers with readable title-and-author fallbacks."
+    ],
+    "rules": [
+      {
+        "name": "The Open Serif Rule",
+        "body": "Preserve weight 500 for the brand and page heading; the heavier earlier declarations are superseded by the final stylesheet override.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tonal Surface Rule",
+        "body": "Distinguish the existing surfaces with their background tones and separators, preserving the flat panel treatment.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do use the final Literata weight of 500 for the brand and page heading.",
+      "Do preserve the integrated totals, quiet panels, and clear chart labels.",
+      "Do show actual reading data and identify the ranking as \u201cMost-read authors.\u201d",
+      "Do retain real cover imagery or a readable title-and-author placeholder.",
+      "Do keep keyboard focus visible and honor reduced motion."
+    ],
+    "donts": [
+      "Don\u2019t restore decorative card subheadings or the removed sidebar quotation.",
+      "Don\u2019t replace source-derived counts, authors, or covers with mockup illustrations.",
+      "Don\u2019t label reading frequency as favorites or invent ratings.",
+      "Don\u2019t add elevation shadows to the existing flat panel vocabulary."
+    ]
+  }
+}
