@@ -26,9 +26,9 @@ try {
  await page.getByRole('searchbox',{name:'Search series'}).fill('Spoiler Alert');
  assert.ok((await page.locator('.series-grid').innerText()).includes('numbering differs'));
  await page.getByRole('button',{name:'Overview',exact:true}).click();
- await page.getByLabel('Reading year').selectOption('2025');
+ await page.getByLabel('Reading period').selectOption('2025');
  assert.notEqual(await page.locator('.summary strong').first().innerText(),'68');
- await page.getByLabel('Reading year').selectOption('2026');
+ await page.getByLabel('Reading period').selectOption('2026');
  await page.setViewportSize({width:390,height:844});
  await page.evaluate(async () => { window.scrollTo(0, 0); await document.fonts.ready; });
  await page.waitForTimeout(250);

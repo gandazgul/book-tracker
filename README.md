@@ -4,7 +4,7 @@ A personal, read-only book tracker built with **Deno, Astro, React, and Tailwind
 
 ## Current status
 
-The working dashboard implements the approved sidebar mockup (`.impeccable/mocks/01-atlas.png`, shown third in chat), using real sheet data. Card subheadings and the lower-left quote are removed as requested. Views include Overview, searchable Library, Series and gaps, the complete TBR, and recommendations. Author rankings are labeled **Most-read authors** and computed from explicitly finished entries for the selected year; they never use the mockup's illustrative names or imply favorite ratings. The production target is [books.dumbhome.uk](https://books.dumbhome.uk), hosted by GitHub Pages with Cloudflare DNS.
+The working dashboard implements the approved sidebar mockup (`.impeccable/mocks/01-atlas.png`, shown third in chat), using real sheet data. Card subheadings and the lower-left quote are removed as requested. Views include Overview, searchable Library, Series and gaps, the complete TBR, and recommendations. Author rankings are labeled **Most-read authors** and computed from explicitly finished entries for the selected period; they never use the mockup's illustrative names or imply favorite ratings. The production target is [books.dumbhome.uk](https://books.dumbhome.uk), hosted by GitHub Pages with Cloudflare DNS.
 
 ## Development
 
@@ -33,7 +33,8 @@ The second tab, **TBR** (`gid=576515270`), is read independently. Its columns ar
 - Reads only. No OAuth credentials, write scopes, or sheet mutation endpoints are used.
 - Dates use `MM-DD-YY`, `MM/DD/YYYY`, or `YYYY-MM-DD` with calendar validation.
 - Counts a book as finished only when its status says `Finished`. A blank status stays `Not set`; `Unfinished` is not assumed to mean currently reading. Platform whitespace and known spelling capitalization are normalized for display.
-- Yearly statistics exclude entries without a valid finish date. All-time views retain those records. Each row counts as a reading entry; repeat reads count again in reading stats but do not inflate series progress.
+- Overview supports year, All time, and Custom dates filters. Custom dates use inclusive start/end finish dates; Apply dates updates totals, reading activity, platforms, recent finishes, and author rankings together. Invalid or incomplete dates keep the previously applied period. Reset returns to All time. Custom activity charts distinguish calendar months across years, switching to annual totals for periods longer than 24 calendar months. TBR and series recommendations retain their full-history scope.
+- Yearly and custom-range statistics exclude entries without a valid finish date. All-time views retain those records. Each row counts as a reading entry; repeat reads count again in reading stats but do not inflate series progress.
 - Public sheet access is required for this static architecture. If access becomes private, a server-side authenticated reader would be needed. Sharing settings are not changed by this app.
 
 ## Covers and metadata
@@ -49,7 +50,7 @@ Open Library's [usage guidelines](https://openlibrary.org/developers/api) call f
 
 ## Series and gaps
 
-`shared/series.ts` compares the full reading history, independent of the dashboard's selected year.
+`shared/series.ts` compares the full reading history, independent of the dashboard's selected period.
 
 - **Number gap:** a missing integer between 1 and the highest number recorded in the sheet. This is an inferred position, not a verified missing title; unnumbered entries may account for it.
 - **Not in sheet:** a specific book from a source-backed catalog is absent from all reading records. This does not assert it has never been read.

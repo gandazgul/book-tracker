@@ -257,3 +257,7 @@ Use real metadata-backed jacket art, keeping the 2:3 slot stable during loading.
 - Don’t replace source-derived counts, authors, or covers with mockup illustrations.
 - Don’t label reading frequency as favorites or invent ratings.
 - Don’t add elevation shadows to the existing flat panel vocabulary.
+
+### Stats period controls
+
+Overview retains the year selector with All time and Custom dates options. Custom dates reveal labeled native start/end date inputs, a berry Apply dates button, and Reset to all time below the heading. An applied-period caption stays visible while editing; invalid input keeps the previous stats. Fields wrap into two columns on mobile. Custom activity charts show chronological month-and-year labels across years, or annual totals beyond 24 months, with horizontal scrolling contained inside the panel.

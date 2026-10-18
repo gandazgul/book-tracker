@@ -1,6 +1,7 @@
 import { useMemo, useState, type ReactNode } from 'react';
 import { ArrowRight, BookOpen, Check, Circle, ExternalLink, House, Layers, ListPlus, RefreshCw, Search, Sparkles, X } from 'lucide-react';
 import { booksInYear, readingStats, type Book } from '../../shared/books';
+import { booksInDateRange, dateRangeError, rangeActivity, type DateRange } from '../../shared/date-range';
 import { availableYears, filterBooks, type BookFilters } from '../../shared/filters';
 import { buildSeries } from '../../shared/series';
 import { categories, type Category, type Recommendation } from '../../shared/recommendations';
@@ -31,24 +32,51 @@ function BookTile({ book, details = false }: { book: Book; details?: boolean }) 
 function Books({ books, details = false, compact = false }: { books: Book[]; details?: boolean; compact?: boolean }) {
   return books.length ? <div className={`book-grid ${compact ? 'compact' : ''}`}>{books.map(book => <BookTile key={book.id} book={book} details={details} />)}</div> : <Empty>No books here yet. Add a reading entry in the sheet and refresh.</Empty>;
 }
-function Activity({ books, year }: { books: Book[]; year: string }) {
-  const months = readingStats(books).months;
-  const max = Math.max(6, Math.ceil(Math.max(...months.map(m => m.count)) / 6) * 6);
-  const now = new Date();
-  const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  return <div className="activity-chart" role="img" aria-label={`Books finished by month${year === 'all' ? ', combined across all years' : ` in ${year}`}: ${months.map((m, i) => `${labels[i]} ${m.count}`).join(', ')}`}>
-    <div className="chart-scale" aria-hidden="true">{[3, 2, 1, 0].map(i => <span key={i}>{max * i / 3}</span>)}</div>
-    <div className="chart-columns" aria-hidden="true">
-    {months.map((month, i) => {
-      const future = year === String(now.getFullYear()) && i > now.getMonth();
-      const height = month.count / max * 100;
-      const peak = month.count > 0 && month.count === Math.max(...months.map(m => m.count));
-      return <div className="chart-column" key={i} title={`${labels[i]}: ${future ? 'Not yet reached' : `${month.count} books finished`}`}>
-        <div className={`chart-bar ${peak ? 'peak' : ''}`} style={{ height: `${future ? 0 : height}%` }}><span>{future ? '—' : month.count}</span></div>
-        <span className="chart-month">{labels[i]}</span></div>;
-    })}
+function DateRangeFilter({ range, onApply, onReset }: { range: DateRange; onApply: (range: DateRange) => void; onReset: () => void }) {
+  const [draft, setDraft] = useState(range);
+  const [submitted, setSubmitted] = useState(false);
+  const error = dateRangeError(draft);
+  const changed = draft.start !== range.start || draft.end !== range.end;
+  return <form className="date-range-filter" noValidate onSubmit={event => {
+    event.preventDefault(); setSubmitted(true);
+    if (!error) onApply(draft);
+  }}>
+    <div className="date-range-fields">
+      <label>Start date<input type="date" value={draft.start} max={draft.end || '9999-12-31'} required aria-invalid={submitted && !!error} aria-describedby={submitted && error ? 'date-range-error' : undefined} onChange={event => setDraft({ ...draft, start: event.target.value })} /></label>
+      <label>End date<input type="date" value={draft.end} min={draft.start || undefined} max="9999-12-31" required aria-invalid={submitted && !!error} aria-describedby={submitted && error ? 'date-range-error' : undefined} onChange={event => setDraft({ ...draft, end: event.target.value })} /></label>
+      <button className="range-apply" type="submit">Apply dates</button>
+      <button className="text-link" type="button" onClick={onReset}>Reset to all time</button>
     </div>
-  </div>;
+    {submitted && error && <p id="date-range-error" className="range-error" role="alert">{error}</p>}
+    <p className="range-caption" role="status">Showing {dateLabel(range.start)} – {dateLabel(range.end)} (inclusive).{changed ? ' Apply dates to update the stats.' : ''}</p>
+  </form>;
+}
+function Activity({ books, year, range }: { books: Book[]; year: string; range?: DateRange }) {
+  const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const activity = range ? rangeActivity(books, range) : null;
+  const months = activity?.buckets ?? readingStats(books).months.map((m, i) => ({ key: String(i), label: labels[i], count: m.count }));
+  const peakCount = Math.max(0, ...months.map(m => m.count));
+  const max = Math.max(6, Math.ceil(peakCount / 6) * 6);
+  const now = new Date();
+  const period = range ? ` from ${dateLabel(range.start)} through ${dateLabel(range.end)}` : year === 'all' ? ', combined across all years' : ` in ${year}`;
+  return <>
+    <div className={`activity-scroll ${range ? 'range-activity' : ''}`} tabIndex={range ? 0 : undefined} role={range ? 'region' : undefined} aria-label={range ? 'Reading activity chart; scroll horizontally for more dates' : undefined}>
+    <div className="activity-chart" style={range ? { minWidth: `${Math.max(280, months.length * 58)}px` } : undefined} role="img" aria-label={`Books finished by ${activity?.unit ?? 'month'}${period}: ${months.map(m => `${m.label} ${m.count}`).join(', ')}`}>
+      <div className="chart-scale" aria-hidden="true">{[3, 2, 1, 0].map(i => <span key={i}>{max * i / 3}</span>)}</div>
+      <div className="chart-columns" style={{ gridTemplateColumns: `repeat(${months.length}, minmax(0, 1fr))` }} aria-hidden="true">
+      {months.map((month, i) => {
+        const future = !range && year === String(now.getFullYear()) && i > now.getMonth();
+        const height = month.count / max * 100;
+        const peak = month.count > 0 && month.count === peakCount;
+        return <div className="chart-column" key={month.key} title={`${month.label}: ${future ? 'Not yet reached' : `${month.count} books finished`}`}>
+          <div className={`chart-bar ${peak ? 'peak' : ''}`} style={{ height: `${future ? 0 : height}%` }}><span>{future ? '—' : month.count}</span></div>
+          <span className="chart-month">{month.label}</span></div>;
+      })}
+      </div>
+    </div>
+    </div>
+    {activity?.unit === 'year' && <p className="data-note">Yearly totals within your selected dates.</p>}
+  </>;
 }
 function Ranking({ values, numbered = false, onSelect }: { values: [string, number][]; numbered?: boolean; onSelect?: (name: string) => void }) {
   const max = values[0]?.[1] || 1;
@@ -72,13 +100,15 @@ export default function Dashboard() {
   const tbr = source.tbr.library?.books ?? empty;
   const [view, setView] = useState<View>('overview');
   const [year, setYear] = useState(String(new Date().getFullYear()));
+  const [range, setRange] = useState<DateRange>(() => ({ start: `${new Date().getFullYear()}-01-01`, end: `${new Date().getFullYear()}-12-31` }));
   const [query, setQuery] = useState('');
   const [status, setStatus] = useState('all');
   const [sort, setSort] = useState<BookFilters['sort']>('recent');
   const [author, setAuthor] = useState('');
   const [gapsOnly, setGapsOnly] = useState(false);
   const [showAllAuthors, setShowAllAuthors] = useState(false);
-  const selectedBooks = useMemo(() => booksInYear(books, year), [books, year]);
+  const selectedBooks = useMemo(() => year === 'custom' ? booksInDateRange(books, range) : booksInYear(books, year), [books, year, range]);
+  const periodLabel = year === 'custom' ? `${dateLabel(range.start)} – ${dateLabel(range.end)}` : year === 'all' ? 'All time' : year;
   const stats = useMemo(() => readingStats(selectedBooks), [selectedBooks]);
   const recent = useMemo(() => filterBooks(selectedBooks, { status: 'Finished' }).slice(0, 4), [selectedBooks]);
   const series = useMemo(() => buildSeries([...books, ...tbr.filter(b => b.series !== 'Series')], seriesCatalog), [books, tbr]);
@@ -99,15 +129,16 @@ export default function Dashboard() {
         <p className={`connection ${connected ? 'connected' : ''}`} role="status"><span />{connected ? 'Connected to Google Sheets' : stale ? 'Showing saved sheet data' : errors.length ? 'Sheet connection issue' : 'Connecting to your sheet…'}</p></div>
     </aside>
     <main id="main" tabIndex={-1}>
-      <header className="page-heading"><h1>{titles[view]}</h1>{view === 'overview' && <label className="year-select"><span className="sr-only">Reading year</span><select value={year} onChange={event => setYear(event.target.value)}>{availableYears(books).map(value => <option key={value}>{value}</option>)}<option value="all">All time</option></select></label>}</header>
+      <header className="page-heading"><h1>{titles[view]}</h1>{view === 'overview' && <label className="year-select"><span className="sr-only">Reading period</span><select value={year} onChange={event => setYear(event.target.value)}>{availableYears(books).map(value => <option key={value}>{value}</option>)}<option value="all">All time</option><option value="custom">Custom dates</option></select></label>}</header>
+      {view === 'overview' && year === 'custom' && <DateRangeFilter range={range} onApply={setRange} onReset={() => setYear('all')} />}
       {!!errors.length && <div className="notice" role="alert">{errors.map(error => <p key={String(error)}>{error}</p>)}<button className="text-link" onClick={() => void source.refreshAll()}>Try again <RefreshCw size={14} /></button></div>}
       {source.loading && !ready && <div className="loading-state" role="status">Loading your reading life…<div className="loading-lines"><span /><span /><span /></div></div>}
       {!source.loading && !ready && <Empty>Your reading history couldn’t load. Check that the sheet is viewable, then use Refresh.</Empty>}
       {(ready || (view === 'tbr' && source.tbr.library)) && <>
         {view === 'overview' && <>
-          <div className="summary" aria-label={`Reading totals for ${year}`}><div><strong>{stats.finished}</strong><span>books finished</span></div><div><strong>{stats.authors}</strong><span>authors</span></div><div><strong>{stats.series}</strong><span>series</span></div></div>
-          <div className="overview-charts"><Panel title="Reading activity"><Activity books={selectedBooks} year={year} />{year === 'all' && <p className="data-note">Months combine all years.</p>}</Panel><Panel title="Where you read"><Ranking values={stats.platforms} /></Panel></div>
-          <div className="overview-lists"><Panel title="Recently finished" action={<button className="text-link" onClick={() => navigate('library')}>View library <ArrowRight size={15} /></button>}><Books books={recent} compact /></Panel>
+          <div className="summary" aria-label={`Reading totals for ${periodLabel}`}><div><strong>{stats.finished}</strong><span>books finished</span></div><div><strong>{stats.authors}</strong><span>authors</span></div><div><strong>{stats.series}</strong><span>series</span></div></div>
+          <div className="overview-charts"><Panel title="Reading activity"><Activity books={selectedBooks} year={year} range={year === 'custom' ? range : undefined} />{year === 'all' && <p className="data-note">Months combine all years.</p>}</Panel><Panel title="Where you read"><Ranking values={stats.platforms} /></Panel></div>
+          <div className="overview-lists"><Panel title="Recently finished" action={<button className="text-link" onClick={() => navigate('library')}>View library <ArrowRight size={15} /></button>}><>{recent.length ? <Books books={recent} compact /> : <Empty>No finished books in this period yet.</Empty>}</></Panel>
             <Panel title="Most-read authors" action={<button className="text-link" onClick={() => setShowAllAuthors(value => !value)}>{showAllAuthors ? 'Show less' : 'View all'} <ArrowRight size={15} /></button>}><Ranking values={showAllAuthors ? stats.topAuthors : stats.topAuthors.slice(0, 5)} numbered onSelect={viewAuthor} /></Panel></div>
           <div className="overview-extras"><Panel title={`To be read${source.tbr.library ? ` · ${tbr.length}` : ''}`} action={<button className="text-link" onClick={() => navigate('tbr')}>View TBR <ArrowRight size={15} /></button>}>{source.tbr.loading ? <Empty>Loading your TBR list…</Empty> : !source.tbr.library ? <Empty>The TBR tab is unavailable. Try Refresh.</Empty> : <ul className="reading-list">{tbr.slice(0, 4).map(book => <li key={book.id}><span>{book.title}</span><span>{book.author || 'Author not listed'}</span></li>)}</ul>}</Panel>
             <Panel title="Keep the story going" action={<button className="text-link" onClick={() => navigate('recommendations')}>Explore <ArrowRight size={15} /></button>}>{recommendations.continueSeries.length ? <ul className="reading-list">{recommendations.continueSeries.slice(0, 3).map(item => <li key={item.key}><span>{item.title}</span><span>{item.series} · Book {item.number}</span></li>)}</ul> : <Empty>Your next read could already be on your TBR. Explore suggestions based on your reading.</Empty>}</Panel></div>
