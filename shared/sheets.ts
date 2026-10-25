@@ -1,6 +1,6 @@
 import { parseBooks, type Library } from './books.ts';
 
-export type SheetSource = { id: string; gid: string; kind: 'read' | 'tbr'; label: string };
+export type SheetSource = { id: string; gid: string; kind: 'read' | 'tbr' | 'dnf'; label: string };
 export type CacheStorage = Pick<Storage, 'getItem' | 'setItem'>;
 
 export function sheetLink(source: SheetSource) {

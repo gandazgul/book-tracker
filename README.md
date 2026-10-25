@@ -25,7 +25,9 @@ Source: [the existing reading sheet](https://docs.google.com/spreadsheets/d/11e9
 
 Expected headers: `Date Finished`, `Title`, `Author`, `Book #`, `Series`, `Platform`, `Status`. Title and Author headers are required; columns may be reordered, and extra columns are ignored. Optional `ISBN` and `Cover URL` columns override automatic cover matching. None are added by the app.
 
-The second tab, **TBR** (`gid=576515270`), is read independently. Its columns are `Title`, `Author`, `Method`, `Series`, `Notes`, and `Have I read Author before?`. Blank statuses on this tab default to `To read`; format and notes are preserved, and missing authors remain missing. The separate TBR library will show all entries, including any overlapping history records. Reading stats use the Read tab only. Each tab has its own cache, loading state, error, and refresh timestamp, so a TBR fetch failure cannot erase reading history. `useLibrary()` exposes history plus `tbr` and `refreshAll()` for the eventual dashboard.
+The second tab, **TBR** (`gid=576515270`), is read independently. Its columns are `Title`, `Author`, `Method`, `Series`, `Notes`, and `Have I read Author before?`. Blank statuses on this tab default to `To read`; format and notes are preserved, and missing authors remain missing. The separate TBR library will show all entries, including any overlapping history records. Finished-reading stats count only explicitly finished Read entries. Each tab has its own cache, loading state, error, and refresh timestamp, so a TBR fetch failure cannot erase reading history. `useLibrary()` exposes history plus `tbr`, `dnf`, and `refreshAll()` for the eventual dashboard.
+
+**DNF** (`gid=955702844`) is read as a third independent tab. Every row is a DNF entry; `Status` preserves details such as `DNF - 25%`, and `Comments` supplies the reason verbatim. `Date Finished` on this tab is displayed as the stopped date (`Date Stopped` is also supported). Overview shows a period-filtered count and the latest three stopped reads, with full reasons; View all DNF opens the Library status filter. Undated entries appear in All time and Library. DNF entries contribute to series progress but never to finished totals, activity, platforms, or most-read authors. Recommendations exclude stopped titles, including TBR duplicates, and wait for the DNF tab or its saved copy before displaying picks. Each tab refreshes and caches independently.
 
 - Reads the [Google Sheets visualization CSV endpoint](https://developers.google.com/chart/interactive/docs/spreadsheets). The supplied sheet currently allows anonymous viewing and cross-origin browser reads.
 - Refreshes on load, every 60 seconds while visible, when returning to the tab, after reconnecting, and on manual refresh. Google may take a little time to expose recent edits.
@@ -54,7 +56,7 @@ Open Library's [usage guidelines](https://openlibrary.org/developers/api) call f
 
 - **Number gap:** a missing integer between 1 and the highest number recorded in the sheet. This is an inferred position, not a verified missing title; unnumbered entries may account for it.
 - **Not in sheet:** a specific book from a source-backed catalog is absent from all reading records. This does not assert it has never been read.
-- **Not set / Unfinished / Reading / To read:** preserves the recorded status of an existing book.
+- **Not set / DNF / Unfinished / Reading / To read:** preserves the recorded status of an existing book.
 - **Numbering conflict:** the title matches a verified catalog, but its sheet number differs. Both values are available; the sheet is untouched.
 - **Main books finished:** only available when every main title in the catalog is explicitly marked finished. Companion books, novellas, and future releases are outside each catalog's stated scope.
 
@@ -69,7 +71,7 @@ Nine initial catalogs are recorded in `src/data/series-catalog.ts`, each with it
 3. **More by authors you read:** Open Library searches for the top three authors by unique finished titles, requiring an exact normalized author match.
 4. **Popular romance:** Open Library candidates for Romance (default), Historical romance, Contemporary romance, or Romantic comedy, ordered using its `want_to_read` signal. The label describes Open Library interest, not sales, current trends, or a bestseller list. Category coverage depends on the catalog's subject metadata.
 
-Scores: series candidates start at 100, TBR at 60; familiar authors add 2 per unique finished title, capped at 20; external candidates add `2 × log10(1 + wantToReadCount)`, capped at 10. Scores order each section. Sections deduplicate in the order above, with up to six suggestions and two per author per section. External suggestions exclude all TBR titles, so books already queued stay in their own section. All lanes exclude books already in history unless explicitly `To read`, including finished, reading, unfinished, and unknown statuses. Title/author matching tolerates punctuation and numbered title suffixes but cannot reliably resolve source typos or pen-name aliases.
+Scores: series candidates start at 100, TBR at 60; familiar authors add 2 per unique finished title, capped at 20; external candidates add `2 × log10(1 + wantToReadCount)`, capped at 10. Scores order each section. Sections deduplicate in the order above, with up to six suggestions and two per author per section. External suggestions exclude all TBR titles, so books already queued stay in their own section. All lanes exclude books already in history unless explicitly `To read`, including finished, DNF, reading, unfinished, and unknown statuses. Title/author matching tolerates punctuation and numbered title suffixes but cannot reliably resolve source typos or pen-name aliases.
 
 Each recommendation carries a reason and source link where available. No inferred spice preferences or ratings are invented. Searches cache for 24 hours, preserve stale results on failure, and share the cover provider's 1.1-second request spacing within a browser tab. Local TBR and series recommendations work even if Open Library fails. English-language searches are the initial default. This intentionally simple engine can later use explicit favorites, ratings, or more categories if she adds them.
 
@@ -79,7 +81,7 @@ References: [Open Library Search API](https://openlibrary.org/dev/docs/api/searc
 
 Repository: [gandazgul/book-tracker](https://github.com/gandazgul/book-tracker). The workflow `.github/workflows/pages.yml` installs locked dependencies, runs tests, builds for `https://books.dumbhome.uk` at `/`, and publishes `dist/` using GitHub’s official Pages actions. Pages uses **GitHub Actions** as its publishing source. The `public/CNAME` file preserves the custom domain in the artifact.
 
-Optional repository variables: `PUBLIC_SHEET_ID`, `PUBLIC_SHEET_GID`, `PUBLIC_TBR_GID`, and a restricted `PUBLIC_GOOGLE_BOOKS_API_KEY`. The existing sheet works without variables or secrets.
+Optional repository variables: `PUBLIC_SHEET_ID`, `PUBLIC_SHEET_GID`, `PUBLIC_TBR_GID`, `PUBLIC_DNF_GID`, and a restricted `PUBLIC_GOOGLE_BOOKS_API_KEY`. The existing sheet works without variables or secrets.
 
 Cloudflare DNS should contain a DNS-only CNAME for `books.dumbhome.uk` pointing to `gandazgul.github.io`; GitHub Pages manages the origin certificate and HTTPS enforcement. The custom domain must also be set in the repository’s Pages settings. No backend or Kubernetes deployment is needed. Each later commit requires a separate explicit user request.
 

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Library } from '../../shared/books';
-import { readReader, tbrReader } from './library';
+import { readReader, tbrReader, dnfReader } from './library';
 
 export function useSheetData(reader: typeof readReader) {
   const [library, setLibrary] = useState<Library | null>(null);
@@ -45,6 +45,7 @@ export function useSheetData(reader: typeof readReader) {
 export function useLibrary() {
   const history = useSheetData(readReader);
   const tbr = useSheetData(tbrReader);
-  const refreshAll = useCallback(() => Promise.all([history.refresh(), tbr.refresh()]), [history.refresh, tbr.refresh]);
-  return { ...history, tbr, refreshAll };
+  const dnf = useSheetData(dnfReader);
+  const refreshAll = useCallback(() => Promise.all([history.refresh(), tbr.refresh(), dnf.refresh()]), [history.refresh, tbr.refresh, dnf.refresh]);
+  return { ...history, tbr, dnf, refreshAll };
 }

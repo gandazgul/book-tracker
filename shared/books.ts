@@ -4,7 +4,7 @@ export type Book = {
   id: string; row: number; title: string; author: string; series: string;
   number: string; platform: string; status: string; finished: string | null;
   rawDate: string; isbn: string; coverUrl: string;
-  source?: 'read' | 'tbr'; notes?: string; format?: string; readAuthorBefore?: string;
+  source?: 'read' | 'tbr' | 'dnf'; dnfReason?: string; statusDetail?: string; notes?: string; format?: string; readAuthorBefore?: string;
 };
 export type Metadata = { coverUrl: string | null; source: 'Open Library' | 'Google Books' | 'Sheet' | null; sourceUrl: string | null };
 export type Library = { books: Book[]; fetchedAt: string; stale: boolean; warning?: string; sheetUrl: string; issues: number };
@@ -23,13 +23,13 @@ export function parseDate(value: string): string | null {
 }
 
 const platformNames: Record<string, string> = { audible: 'Audible', hoopla: 'Hoopla', 'book orbit': 'Book Orbit', kindle: 'Kindle', kobo: 'Kobo', book: 'Book' };
-const statusNames: Record<string, string> = { finished: 'Finished', unfinished: 'Unfinished', reading: 'Reading', 'currently reading': 'Reading', 'to read': 'To read', 'want to read': 'To read', dnf: 'Unfinished' };
+const statusNames: Record<string, string> = { finished: 'Finished', unfinished: 'Unfinished', reading: 'Reading', 'currently reading': 'Reading', 'to read': 'To read', 'want to read': 'To read', dnf: 'DNF' };
 
 export function safeImageUrl(value: string): string {
   try { const url = new URL(value); return url.protocol === 'https:' ? url.href : ''; } catch { return ''; }
 }
 
-export function parseBooks(csv: string, source: 'read' | 'tbr' = 'read'): Book[] {
+export function parseBooks(csv: string, source: 'read' | 'tbr' | 'dnf' = 'read'): Book[] {
   const parsed = Papa.parse<string[]>(csv, { skipEmptyLines: 'greedy' });
   if (parsed.errors.length) throw new Error('The sheet could not be read as CSV. Check its formatting.');
   const [header, ...rows] = parsed.data;
@@ -43,12 +43,15 @@ export function parseBooks(csv: string, source: 'read' | 'tbr' = 'read'): Book[]
     const title = get(row, 'title');
     if (!title) return [];
     const status = get(row, 'status'); const platform = get(row, 'platform');
-    const rawDate = get(row, 'date finished');
-    return [{ id: `${source === 'tbr' ? 'tbr-' : ''}row-${i + 2}`, row: i + 2, title, author: get(row, 'author'),
+    const isDnf = source === 'dnf' || /^dnf\b/i.test(status);
+    const rawDate = get(row, ...(isDnf ? ['date stopped', 'date finished'] : ['date finished']));
+    return [{ id: `${source === 'read' ? '' : `${source}-`}row-${i + 2}`, row: i + 2, title, author: get(row, 'author'),
       series: get(row, 'series'), number: get(row, 'book #'), platform: platformNames[platform.toLowerCase()] ?? (platform || 'Not specified'),
-      status: statusNames[status.toLowerCase()] ?? (status || (source === 'tbr' ? 'To read' : 'Not set')),
+      status: isDnf ? 'DNF' : statusNames[status.toLowerCase()] ?? (status || (source === 'tbr' ? 'To read' : 'Not set')),
       finished: parseDate(rawDate), rawDate, isbn: get(row, 'isbn', 'isbn-13'),
       coverUrl: safeImageUrl(get(row, 'cover url', 'cover')), source,
+      statusDetail: isDnf ? (/^dnf\b/i.test(status) ? status : 'DNF') : undefined,
+      dnfReason: isDnf ? get(row, 'dnf reason', 'reason', 'comments') : undefined,
       notes: get(row, 'notes'), format: get(row, 'method'), readAuthorBefore: get(row, 'have i read author before?') }];
   });
 }

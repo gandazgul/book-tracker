@@ -20,6 +20,8 @@ Read from spreadsheet `11e9H7MEYZdOWZlKPdGITu-bvmHbw4N5szeoqd1Ordmk`, tab gid `0
 
 Also read the second tab, TBR (`gid=576515270`), with Title, Author, Method, Series, Notes, and Have I read Author before? columns. Preserve all TBR rows in a separate section and keep them out of finished-reading stats. Blank TBR status means To read because of the explicit tab purpose.
 
+Also read DNF (`gid=955702844`). Treat its rows as stopped reads, preserve Status percentages and Comments reasons, and interpret Date Finished as the stopped date. Show a period-filtered Overview section and an all-time Library filter. Keep DNF out of finished statistics and recommendations while retaining it in series progress.
+
 ## Capabilities and Constraints
 
 - Read only. Books added or changed in the sheet appear after refresh.
@@ -30,7 +32,7 @@ Also read the second tab, TBR (`gid=576515270`), with Title, Author, Method, Ser
 - Series tracking must expose gaps. Use all-time reading history; distinguish number gaps inferred from the sheet from titles absent in a verified catalog. Never infer that an absent entry means the reader has not read it.
 - Keep catalog numbering discrepancies visible without changing source values.
 - Include a separate recommendations section: verified series continuations, selections from TBR, more books by familiar authors, and popular romance. The user explicitly identified romance as the primary preference. Offer historical, contemporary, and romantic-comedy categories without claiming they were inferred from sheet data.
-- Explain every recommendation; exclude books already finished, reading, unfinished, or of unknown status. Deduplicate suggestions, retain the complete TBR library, and label external popularity as Open Library want-to-read counts.
+- Explain every recommendation; exclude books already finished, DNF, reading, unfinished, or of unknown status. Deduplicate suggestions, retain the complete TBR library, and label external popularity as Open Library want-to-read counts.
 
 ## Stack
 

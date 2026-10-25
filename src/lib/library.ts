@@ -3,6 +3,10 @@ import { createSheetReader, sheetLink, type SheetSource } from '../../shared/she
 export const sheetId = import.meta.env.PUBLIC_SHEET_ID || '11e9H7MEYZdOWZlKPdGITu-bvmHbw4N5szeoqd1Ordmk';
 export const sheetGid = import.meta.env.PUBLIC_SHEET_GID || '0';
 export const tbrGid = import.meta.env.PUBLIC_TBR_GID || '576515270';
+export const dnfGid = import.meta.env.PUBLIC_DNF_GID || '955702844';
+export const dnfSource: SheetSource = { id: sheetId, gid: dnfGid, kind: 'dnf', label: 'Didn’t finish' };
+export const dnfReader = createSheetReader(dnfSource, () => localStorage);
+export const dnfUrl = sheetLink(dnfSource);
 export const readSource: SheetSource = { id: sheetId, gid: sheetGid, kind: 'read', label: 'Reading history' };
 export const tbrSource: SheetSource = { id: sheetId, gid: tbrGid, kind: 'tbr', label: 'To Be Read' };
 export const sheetUrl = sheetLink(readSource);

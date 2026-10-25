@@ -219,3 +219,14 @@ input[type=checkbox] { width: 17px; height: 17px; accent-color: var(--color-berr
   .date-range-fields input { width: 100%; min-width: 0; padding-inline: 8px; }
   .date-range-fields .text-link { justify-content: center; }
 }
+
+/* Stopped reads keep reasons readable at every viewport width. */
+.dnf-panel { margin-bottom: 16px; }
+.dnf-list { list-style: none; padding: 0; margin: 0; }
+.dnf-list > li { padding: 16px 0; border-top: 1px solid #eee8f1; }
+.dnf-list > li:first-child { border-top: 0; padding-top: 0; }
+.dnf-list > li:last-child { padding-bottom: 0; }
+.dnf-heading { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 10px; }
+.dnf-heading h3 { font-size: 14px; margin: 0 0 4px; }
+.dnf-reason { white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.6; }
+.dnf-list .dnf-reason { font-size: 13px; margin: 8px 0 0; max-width: 80ch; }
