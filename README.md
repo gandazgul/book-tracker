@@ -41,12 +41,12 @@ The second tab, **TBR** (`gid=576515270`), is read independently. Its columns ar
 
 ## Covers and metadata
 
-1. An HTTPS `Cover URL` from the sheet, if supplied.
-2. An ISBN cover from [Open Library Covers API](https://openlibrary.org/dev/docs/api/covers), if supplied.
-3. [Open Library Search API](https://openlibrary.org/dev/docs/api/search) matching title **and** author. Viewport requests are batched in groups of six; searches are spaced by at least 1.1 seconds. Successful cover results are cached in the browser for 30 days, confirmed misses for one day; failed requests are not cached as permanent misses.
+1. An HTTPS `Cover URL` from the sheet, if supplied and its image loads.
+2. An ISBN cover from [Open Library Covers API](https://openlibrary.org/dev/docs/api/covers), if supplied. A missing or failed ISBN image falls through to title/author lookup.
+3. [Open Library Search API](https://openlibrary.org/dev/docs/api/search) matching title **and** author. Search phrases preserve apostrophes and remove trailing sheet book numbers. Matching tolerates punctuation, compatible author initials and middle initials, and edition/series packaging suffixes; it rejects conflicting authors, epilogues, sequels, and box sets. Viewport requests are batched in groups of six; searches are spaced by at least 1.1 seconds. Up to three matching catalog covers are tried when an image fails. Images are checked with browser image loading, without requiring CORS from image hosts. Only loaded images persist in the browser for 30 days. Confirmed catalog misses stay in memory for ten minutes; provider/image failures are not cached. The new cache version ignores previous matching results.
 4. Optional [Google Books API](https://developers.google.com/books/docs/v1/using) fallback with `PUBLIC_GOOGLE_BOOKS_API_KEY`. Keyless requests returned quota errors during live research. A browser-visible key must be restricted to Books API and the deployed site's HTTP referrer; it is not a server secret.
 
-Missing or ambiguous matches use a title/author placeholder. Some recent indie titles have no matching Open Library record. A matching work's cover may be a different edition. No fabricated jacket artwork from the design mockups is used as bibliographic metadata. Source links are retained for attribution.
+The existing **Refresh** action also retries missing covers without discarding successful cover caches. Changing a title, author, ISBN, or Cover URL causes a new lookup. Missing or ambiguous matches use a title/author placeholder. Some recent indie titles have no matching Open Library record. A matching work's cover may be a different edition. No fabricated jacket artwork from the design mockups is used as bibliographic metadata. Source links are retained for attribution.
 
 Open Library's [usage guidelines](https://openlibrary.org/developers/api) call for caching and low request rates. This is a low-volume personal library, not a bulk metadata mirror. Requests across separate browsers are not globally rate-limited.
 

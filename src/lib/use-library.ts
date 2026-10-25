@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { retryMissingCovers } from './metadata';
 import type { Library } from '../../shared/books';
 import { readReader, tbrReader, dnfReader } from './library';
 
@@ -46,6 +47,6 @@ export function useLibrary() {
   const history = useSheetData(readReader);
   const tbr = useSheetData(tbrReader);
   const dnf = useSheetData(dnfReader);
-  const refreshAll = useCallback(() => Promise.all([history.refresh(), tbr.refresh(), dnf.refresh()]), [history.refresh, tbr.refresh, dnf.refresh]);
+  const refreshAll = useCallback(() => { retryMissingCovers(); return Promise.all([history.refresh(), tbr.refresh(), dnf.refresh()]); }, [history.refresh, tbr.refresh, dnf.refresh]);
   return { ...history, tbr, dnf, refreshAll };
 }

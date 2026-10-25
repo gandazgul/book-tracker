@@ -84,12 +84,3 @@ export function normalizeText(value: string) {
 export function normalizeTitle(value: string) {
   return normalizeText(value.replace(/-\s*\d+$/, '').split(':')[0]);
 }
-
-export function matchScore(book: Pick<Book, 'title' | 'author'>, title: string, authors: string[]) {
-  const requested = normalizeTitle(book.title); const found = normalizeTitle(title);
-  const tokens = new Set(requested.split(' ')); const other = new Set(found.split(' '));
-  const overlap = [...tokens].filter(t => other.has(t)).length / Math.max(tokens.size, other.size);
-  const author = normalizeTitle(book.author).replaceAll(' ', '');
-  const authorMatch = !!author && authors.some(a => normalizeTitle(a).replaceAll(' ', '') === author);
-  return authorMatch && (requested === found || overlap >= 0.85) ? overlap : 0;
-}

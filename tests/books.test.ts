@@ -1,5 +1,6 @@
+import { coverMatchScore as matchScore } from '../shared/cover-matching.ts';
 import { strict as assert } from 'node:assert';
-import { booksInYear, matchScore, parseBooks, parseDate, readingStats } from '../shared/books.ts';
+import { booksInYear, parseBooks, parseDate, readingStats } from '../shared/books.ts';
 
 Deno.test('month-first dates are calendar validated, including leap years', () => {
   assert.equal(parseDate('09-30-26'), '2026-09-30');
