@@ -2,12 +2,14 @@ import { type Book, type Metadata } from '../../shared/books';
 import { coverMatchScore, coverSearchTitle } from '../../shared/cover-matching';
 import { createCoverProvider } from '../../shared/cover-provider';
 import { openLibrarySearch } from './open-library';
+import { prepareCoverCache, forgetCachedCover } from './cover-cache';
 
 // Image loading works across origins without requiring the cover host to allow fetch/CORS.
 function imageLoads(url: string): Promise<boolean> {
   return new Promise(resolve => {
     const image = new Image();
     const finish = (loaded: boolean) => {
+      if (!loaded) forgetCachedCover(url);
       clearTimeout(timer); image.onload = null; image.onerror = null; resolve(loaded);
     };
     const timer = setTimeout(() => finish(false), 8000);
@@ -31,7 +33,10 @@ async function googleFallback(book: Book): Promise<Metadata[]> {
   });
 }
 const provider = createCoverProvider({ search: openLibrarySearch, imageLoads, fallback: googleFallback, storage: () => localStorage });
-export const getMetadata = provider.get;
+export async function getMetadata(book: Book) {
+  await prepareCoverCache();
+  return provider.get(book);
+}
 export const invalidateMetadata = provider.invalidate;
 let revision = 0;
 const listeners = new Set<() => void>();
